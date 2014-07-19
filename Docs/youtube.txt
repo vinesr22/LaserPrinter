@@ -1,0 +1,8 @@
+This video details the basic operation of my PWM controlled 445 nm 1.5 Watt Laser build. 
+
+Software: C
+Programmer: Arduino
+Hardware: Power MOSFET Linear Current Regulator Circuit: (http://laserpointerforums.com/f51/simple-linear-mosfet-dimming-circuit-pwm-70812.html)
+Atmel Attiny2313: (https://www.sparkfun.com/products/212)
+laser parts: (http://www.survivallaserusa.com) Thanks Gary!
+445 nm diode: (http://lmgtfy.com/?q=445+nm+laser+diode)
