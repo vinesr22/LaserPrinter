@@ -7,18 +7,20 @@
 //connect VMOT to power source (9v battery + term)
 //connect GRD to power source (9v battery - term)
 
-int analogPin = A0;   // potentiometer connected to analog pin 3
-int stp = 9;  //connect pin 13 to step
-int dir = 12;  // connect pin 12 to dir
-int a = 0;     //  gen counter
+int analogPin = A0;   // potentiometer connected to analog pin 0
+int stp = 9;  //connect pin 9 to step
+int dir = 13;  // connect pin 13 to dir
 int val = 0;         // variable to store the read value
 int pre_val = 0;         // variable to store the read value
 int inc = 0;         // amount to increment
+int awakePin = 12;
+int awake = 0;
 
 void setup() 
 {                
   pinMode(stp, OUTPUT);
   pinMode(dir, OUTPUT);
+  pinMode(awakePin, OUTPUT);
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);  
 }
@@ -26,22 +28,33 @@ void setup()
 
 void loop() 
 {
+
   val = analogRead(A0);   // read the input pin
   inc = val - pre_val;
   pre_val = val;
-  if(inc > 3 ){
-    dir = 1;
+  if(inc > 0 ){
+    digitalWrite(dir, HIGH);
   }
-  else if(inc < -3){
-    dir = 0;
+  else if(inc < 0){
+    digitalWrite(dir, LOW);
   }
-  if((inc > 3) || (inc < -3)){
+  inc = abs(inc);
+  if(inc > 3){
+    digitalWrite(awakePin, HIGH);
+    delay(10); //wait for charge pump //1 ms seems to be too fast
+
+    for(int i=0;i<inc;i++){
     digitalWrite(stp, HIGH);   
-    delay(10);               
+    delay(0.2);               
     digitalWrite(stp, LOW);  
-    delay(10);
+    delay(0.2);
+    }
+  }
+  else{
+    delay(10); //wait before turning stepper to sleep. If too short then driver cuts power to motor before it can move.
+    digitalWrite(awakePin, LOW);//put stepper motor driver to sleep
   }
   // print out the value you read:
-  Serial.println(inc);
-  delay(1000);
+//  Serial.println(inc);
+//  delay(1000);
 }
