@@ -27,9 +27,9 @@ int PotPin = A0;                       //Pin potentiometer is connected to
 
 //Program variables
 boolean bln_StepperAwakeState = LOW;   //HIGH=Awake, LOW=Asleep
-int num_PotVoltage = 0;                // variable to store the read value
-int num_pre_PotVoltage = 0;        // variable to store the read value
-int num_DeltaPotReadings = 0;          // num_DeltaPotReadingsamount to num_DeltaPotReadings
+int num_PotVoltage = 0;                //Current analog potentiometer read value
+int num_pre_PotVoltage = 0;            //Previous potentiometer read value
+int num_DeltaPotReadings = 0;          //Saves the delta value between readings
 
 
 void setup() 
